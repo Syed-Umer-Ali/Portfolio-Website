@@ -105,7 +105,7 @@ export function Hero() {
           </div>
 
           {/* Stats */}
-          <div className="flex gap-10">
+          <div className="flex gap-6 md:gap-10">
             {[
               ["4+", "Projects"],
               ["3", "AI SDKs"],
@@ -135,9 +135,9 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative"
         >
-          <div className="glass-card p-8 animate-float">
+          <div className="glass-card p-4 md:p-8 animate-float overflow-hidden">
             <pre
-              className="font-mono text-sm leading-8"
+              className="font-mono text-[10px] xs:text-xs md:text-sm leading-relaxed md:leading-8 whitespace-pre-wrap break-all md:break-normal"
               style={{ color: "var(--text)" }}
             >
               <span className="text-neutral-500">{"// AI Developer Profile\n"}</span>
@@ -153,13 +153,13 @@ export function Hero() {
               <span className="text-purple-400">skills</span>
               {": "}
               <span style={{ color: "var(--accent)" }}>
-                ["AI Agents","MCP Servers","RAG","Automation"]
+                ["AI Agents", "MCP Servers", "RAG", "Automation"]
               </span>
               {",\n  "}
               <span className="text-purple-400">frameworks</span>
               {": "}
               <span style={{ color: "var(--accent)" }}>
-                ["OpenAI Agents SDK","Claude ADK","Google ADK"]
+                ["OpenAI", "Claude", "Google ADK"]
               </span>
               {",\n  "}
               <span className="text-purple-400">certified</span>

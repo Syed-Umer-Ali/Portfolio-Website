@@ -91,14 +91,14 @@ export function Certifications() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="glass-card p-8 flex justify-around flex-wrap gap-6"
+          className="glass-card p-4 md:p-8 flex justify-around flex-wrap gap-6"
         >
-          {[["6+", "Total Certs", "🏆"], ["3", "AI Frameworks", "🤖"], ["2024", "Latest Cert", "📅"], ["100%", "Pass Rate", "✅"]].map(
+          {[["6+", "Total", "🏆"], ["3", "Agents", "🤖"], ["2024", "Latest", "📅"], ["100%", "Pass", "✅"]].map(
             ([n, l, ic]) => (
-              <div key={l} className="text-center">
-                <div className="text-2xl mb-2">{ic}</div>
+              <div key={l} className="text-center min-w-[70px]">
+                <div className="text-xl mb-1">{ic}</div>
                 <div
-                  className="font-display font-extrabold text-3xl"
+                  className="font-display font-extrabold text-2xl md:text-3xl"
                   style={{
                     background: "linear-gradient(135deg,#00ffff,#7c3aed)",
                     WebkitBackgroundClip: "text",
@@ -107,7 +107,7 @@ export function Certifications() {
                 >
                   {n}
                 </div>
-                <div className="text-neutral-500 text-sm mt-1">{l}</div>
+                <div className="text-neutral-500 text-[10px] md:text-sm mt-1">{l}</div>
               </div>
             )
           )}

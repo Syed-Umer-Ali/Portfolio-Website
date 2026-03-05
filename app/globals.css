@@ -235,15 +235,17 @@ body {
 
 .hero-title {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-size: clamp(2rem, 7vw, 5.5rem);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.1;
   background: linear-gradient(135deg, #fff 0%, #00ffff 40%, #7c3aed 80%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmer 3s linear infinite;
+  overflow-wrap: break-word;
+  word-break: keep-all;
 }
 
 .section-title {

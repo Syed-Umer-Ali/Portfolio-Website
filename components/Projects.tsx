@@ -227,37 +227,37 @@ export function Projects() {
         </div>
 
         {/* Charts */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="glass-card p-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="glass-card p-4 md:p-8">
             <h3 className="font-bold text-lg mb-6">Project Growth</h3>
             <ResponsiveContainer width="100%" height={200}>
-              <AreaChart data={monthlyData}>
+              <AreaChart data={monthlyData} margin={{ left: -20, right: 10 }}>
                 <defs>
                   <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#00ffff" stopOpacity={0.3} />
                     <stop offset="95%" stopColor="#00ffff" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="month" stroke="var(--muted)" tick={{ fill: "var(--muted)", fontSize: 11 }} />
-                <YAxis stroke="var(--muted)" tick={{ fill: "var(--muted)", fontSize: 11 }} />
+                <XAxis dataKey="month" stroke="var(--muted)" tick={{ fill: "var(--muted)", fontSize: 10 }} />
+                <YAxis stroke="var(--muted)" tick={{ fill: "var(--muted)", fontSize: 10 }} />
                 <Tooltip contentStyle={{ background: "var(--surface2)", border: "1px solid var(--border)", borderRadius: 12, color: "var(--text)" }} />
                 <Area type="monotone" dataKey="projects" stroke="#00ffff" strokeWidth={3} fill="url(#areaGrad)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
 
-          <div className="glass-card p-8">
+          <div className="glass-card p-4 md:p-8">
             <h3 className="font-bold text-lg mb-6">Commit Activity</h3>
             <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={monthlyData}>
+              <BarChart data={monthlyData} margin={{ left: -20, right: 10 }}>
                 <defs>
                   <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#7c3aed" />
                     <stop offset="100%" stopColor="#00ffff" />
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="month" stroke="var(--muted)" tick={{ fill: "var(--muted)", fontSize: 11 }} />
-                <YAxis stroke="var(--muted)" tick={{ fill: "var(--muted)", fontSize: 11 }} />
+                <XAxis dataKey="month" stroke="var(--muted)" tick={{ fill: "var(--muted)", fontSize: 10 }} />
+                <YAxis stroke="var(--muted)" tick={{ fill: "var(--muted)", fontSize: 10 }} />
                 <Tooltip contentStyle={{ background: "var(--surface2)", border: "1px solid var(--border)", borderRadius: 12, color: "var(--text)" }} />
                 <Bar dataKey="commits" fill="url(#barGrad)" radius={[6, 6, 0, 0]} />
               </BarChart>

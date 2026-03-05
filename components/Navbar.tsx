@@ -127,7 +127,16 @@ export function Navbar() {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={() => { setActive(link.name); setOpen(false); }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActive(link.name);
+                    setOpen(false);
+                    const targetId = link.href.replace("#", "");
+                    const elem = document.getElementById(targetId);
+                    if (elem) {
+                      elem.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
                   className={cn(
                     "text-lg font-medium transition-colors py-2",
                     active === link.name ? "text-accent" : "text-neutral-300 hover:text-white"
@@ -138,7 +147,12 @@ export function Navbar() {
               ))}
               <a
                 href="#contact"
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpen(false);
+                  const elem = document.getElementById("contact");
+                  if (elem) elem.scrollIntoView({ behavior: "smooth" });
+                }}
                 className="mt-2 px-6 py-4 rounded-xl bg-gradient-to-r from-accent to-primary text-black font-bold text-center active:scale-95 transition-transform"
               >
                 Hire Me ✦
