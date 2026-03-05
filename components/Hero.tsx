@@ -145,18 +145,18 @@ export function Hero() {
               {"  "}
               <span className="text-purple-400">name</span>
               {": "}
-              <span style={{ color: "var(--accent)" }}>"AI Dev"</span>
+              <span style={{ color: "var(--accent)" }}>"Umer Ali"</span>
               {",\n  "}
               <span className="text-purple-400">skills</span>
               {": "}
               <span style={{ color: "var(--accent)" }}>
-                ["Agents","MCP","RAG"]
+                ["AI Agents","MCP Servers","RAG","Automation"]
               </span>
               {",\n  "}
               <span className="text-purple-400">frameworks</span>
               {": "}
               <span style={{ color: "var(--accent)" }}>
-                ["OpenAI","Claude","Google"]
+                ["OpenAI Agents SDK","Claude ADK","Google ADK"]
               </span>
               {",\n  "}
               <span className="text-purple-400">certified</span>
