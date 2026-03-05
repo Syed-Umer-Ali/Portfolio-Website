@@ -241,6 +241,7 @@ body {
   background: linear-gradient(135deg, #fff 0%, #00ffff 40%, #7c3aed 80%);
   background-size: 200% auto;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmer 3s linear infinite;
 }
@@ -324,6 +325,22 @@ body {
   filter: blur(80px);
   animation: orb-move 8s ease-in-out infinite;
   pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .orb {
+    animation: none;
+    filter: blur(40px);
+  }
+
+  .animate-float {
+    animation-duration: 10s;
+  }
+
+  .btn-primary {
+    animation: none;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
+  }
 }
 
 .skill-badge {

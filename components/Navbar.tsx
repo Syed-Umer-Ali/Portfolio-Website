@@ -5,14 +5,14 @@ import { Menu, X, Code2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
-  { name: "Home",           href: "#home" },
-  { name: "About",          href: "#about" },
-  { name: "Skills",         href: "#skills" },
-  { name: "Projects",       href: "#projects" },
+  { name: "Home", href: "#home" },
+  { name: "About", href: "#about" },
+  { name: "Skills", href: "#skills" },
+  { name: "Projects", href: "#projects" },
   { name: "Certifications", href: "#certifications" },
-  { name: "Testimonials",   href: "#testimonials" },
-  { name: "Blog",           href: "#blog" },
-  { name: "Contact",        href: "#contact" },
+  { name: "Testimonials", href: "#testimonials" },
+  { name: "Blog", href: "#blog" },
+  { name: "Contact", href: "#contact" },
 ];
 
 export function Navbar() {
@@ -112,13 +112,15 @@ export function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {open && (
           <motion.div
+            key="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-black/95 backdrop-blur-xl border-b border-white/5 overflow-hidden"
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="lg:hidden bg-black/98 backdrop-blur-lg border-b border-white/10 overflow-hidden relative z-[60]"
           >
             <div className="flex flex-col p-6 gap-4">
               {NAV_LINKS.map((link) => (
@@ -127,8 +129,8 @@ export function Navbar() {
                   href={link.href}
                   onClick={() => { setActive(link.name); setOpen(false); }}
                   className={cn(
-                    "text-lg font-medium transition-colors",
-                    active === link.name ? "text-accent" : "text-neutral-400"
+                    "text-lg font-medium transition-colors py-2",
+                    active === link.name ? "text-accent" : "text-neutral-300 hover:text-white"
                   )}
                 >
                   {link.name}
@@ -137,7 +139,7 @@ export function Navbar() {
               <a
                 href="#contact"
                 onClick={() => setOpen(false)}
-                className="mt-2 px-6 py-3 rounded-full bg-gradient-to-r from-accent to-primary text-black text-sm font-bold text-center"
+                className="mt-2 px-6 py-4 rounded-xl bg-gradient-to-r from-accent to-primary text-black font-bold text-center active:scale-95 transition-transform"
               >
                 Hire Me ✦
               </a>

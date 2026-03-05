@@ -44,10 +44,17 @@ export function Hero() {
 
 
       {/* Orbs */}
-      <div className="orb w-[600px] h-[600px] -top-52 -right-52"
-        style={{ background: "rgba(124,58,237,0.15)" }} />
-      <div className="orb w-[400px] h-[400px] -bottom-32 -left-32"
-        style={{ background: "rgba(0,255,255,0.1)", animationDelay: "-4s" }} />
+      <div className="orb w-[300px] h-[300px] md:w-[600px] md:h-[600px] -top-20 -right-20 md:-top-52 md:-right-52"
+        style={{
+          background: "rgba(124,58,237,0.15)",
+          filter: "blur(clamp(40px, 10vw, 80px))"
+        }} />
+      <div className="orb w-[200px] h-[200px] md:w-[400px] md:h-[400px] -bottom-20 -left-20 md:-bottom-32 md:-left-32"
+        style={{
+          background: "rgba(0,255,255,0.1)",
+          animationDelay: "-4s",
+          filter: "blur(clamp(30px, 8vw, 60px))"
+        }} />
 
       <div className="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center relative z-10">
         {/* Left */}
