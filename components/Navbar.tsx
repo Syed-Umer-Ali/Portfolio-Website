@@ -131,11 +131,24 @@ export function Navbar() {
                     e.preventDefault();
                     setActive(link.name);
                     setOpen(false);
-                    const targetId = link.href.replace("#", "");
-                    const elem = document.getElementById(targetId);
-                    if (elem) {
-                      elem.scrollIntoView({ behavior: "smooth" });
-                    }
+
+                    // Delay scroll to allow menu animation to start/finish
+                    setTimeout(() => {
+                      const targetId = link.href.replace("#", "");
+                      const elem = document.getElementById(targetId);
+                      if (elem) {
+                        const offset = 80; // Approximate navbar height
+                        const bodyRect = document.body.getBoundingClientRect().top;
+                        const elemRect = elem.getBoundingClientRect().top;
+                        const elemPosition = elemRect - bodyRect;
+                        const offsetPosition = elemPosition - offset;
+
+                        window.scrollTo({
+                          top: offsetPosition,
+                          behavior: "smooth"
+                        });
+                      }
+                    }, 300);
                   }}
                   className={cn(
                     "text-lg font-medium transition-colors py-2",
@@ -150,8 +163,21 @@ export function Navbar() {
                 onClick={(e) => {
                   e.preventDefault();
                   setOpen(false);
-                  const elem = document.getElementById("contact");
-                  if (elem) elem.scrollIntoView({ behavior: "smooth" });
+                  setTimeout(() => {
+                    const elem = document.getElementById("contact");
+                    if (elem) {
+                      const offset = 80;
+                      const bodyRect = document.body.getBoundingClientRect().top;
+                      const elemRect = elem.getBoundingClientRect().top;
+                      const elemPosition = elemRect - bodyRect;
+                      const offsetPosition = elemPosition - offset;
+
+                      window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                      });
+                    }
+                  }, 300);
                 }}
                 className="mt-2 px-6 py-4 rounded-xl bg-gradient-to-r from-accent to-primary text-black font-bold text-center active:scale-95 transition-transform"
               >
