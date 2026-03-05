@@ -14,7 +14,7 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className="py-24 px-6 relative overflow-hidden"
+      className="py-24 px-4 sm:px-6 relative overflow-hidden"
       style={{ background: "rgba(13,13,31,0.5)" }}
     >
       {/* Bg particles */}

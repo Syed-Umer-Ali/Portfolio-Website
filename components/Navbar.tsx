@@ -26,7 +26,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Track active section on scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -38,7 +37,7 @@ export function Navbar() {
           }
         });
       },
-      { threshold: 0.4 }
+      { threshold: 0.3 }
     );
     NAV_LINKS.forEach((l) => {
       const el = document.querySelector(l.href);
@@ -46,6 +45,21 @@ export function Navbar() {
     });
     return () => observer.disconnect();
   }, []);
+
+  const handleNavClick = (name: string, targetId: string) => {
+    setActive(name);
+    setOpen(false);
+
+    setTimeout(() => {
+      const el = document.getElementById(targetId);
+      if (!el) {
+        console.warn("Element not found:", targetId);
+        return;
+      }
+      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: "smooth" });
+    }, 100);
+  };
 
   return (
     <motion.nav
@@ -61,7 +75,11 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
-        <a href="#home" className="flex items-center gap-2">
+        <a
+          href="#home"
+          onClick={(e) => { e.preventDefault(); handleNavClick("Home", "home"); }}
+          className="flex items-center gap-2"
+        >
           <Code2 className="text-white w-5 h-5" />
           <span className="text-lg font-bold text-white font-display">
             <span className="text-accent">&lt;</span>DevAI
@@ -75,7 +93,7 @@ export function Navbar() {
             <a
               key={link.name}
               href={link.href}
-              onClick={() => setActive(link.name)}
+              onClick={(e) => { e.preventDefault(); handleNavClick(link.name, link.href.replace("#", "")); }}
               className={cn(
                 "text-sm font-medium transition-colors relative pb-1",
                 active === link.name
@@ -97,6 +115,7 @@ export function Navbar() {
         {/* CTA */}
         <a
           href="#contact"
+          onClick={(e) => { e.preventDefault(); handleNavClick("Contact", "contact"); }}
           className="hidden lg:block px-6 py-2.5 rounded-full bg-gradient-to-r from-accent to-primary text-black text-sm font-bold transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(0,255,255,0.4)]"
         >
           Hire Me ✦
@@ -104,55 +123,35 @@ export function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          onClick={() => setOpen(!open)}
-          className="lg:hidden p-2 text-white"
+          onClick={() => setOpen((p) => !p)}
+          className="lg:hidden p-2 text-white z-[70] relative"
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {open && (
           <motion.div
-            key="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="lg:hidden bg-black/98 backdrop-blur-lg border-b border-white/10 overflow-hidden relative z-[60]"
+            transition={{ duration: 0.15 }}
+            className="lg:hidden bg-black/95 backdrop-blur-xl border-b border-white/5 overflow-hidden"
           >
-            <div className="flex flex-col p-6 gap-4">
+            <div className="flex flex-col p-6 gap-1">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    setActive(link.name);
-                    setOpen(false);
-
-                    // Delay scroll to allow menu animation to start/finish
-                    setTimeout(() => {
-                      const targetId = link.href.replace("#", "");
-                      const elem = document.getElementById(targetId);
-                      if (elem) {
-                        const offset = 80; // Approximate navbar height
-                        const bodyRect = document.body.getBoundingClientRect().top;
-                        const elemRect = elem.getBoundingClientRect().top;
-                        const elemPosition = elemRect - bodyRect;
-                        const offsetPosition = elemPosition - offset;
-
-                        window.scrollTo({
-                          top: offsetPosition,
-                          behavior: "smooth"
-                        });
-                      }
-                    }, 300);
+                    handleNavClick(link.name, link.href.replace("#", ""));
                   }}
                   className={cn(
-                    "text-lg font-medium transition-colors py-2",
-                    active === link.name ? "text-accent" : "text-neutral-300 hover:text-white"
+                    "text-lg font-medium transition-colors py-3 border-b border-white/5",
+                    active === link.name ? "text-accent" : "text-neutral-400"
                   )}
                 >
                   {link.name}
@@ -160,26 +159,8 @@ export function Navbar() {
               ))}
               <a
                 href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setOpen(false);
-                  setTimeout(() => {
-                    const elem = document.getElementById("contact");
-                    if (elem) {
-                      const offset = 80;
-                      const bodyRect = document.body.getBoundingClientRect().top;
-                      const elemRect = elem.getBoundingClientRect().top;
-                      const elemPosition = elemRect - bodyRect;
-                      const offsetPosition = elemPosition - offset;
-
-                      window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                      });
-                    }
-                  }, 300);
-                }}
-                className="mt-2 px-6 py-4 rounded-xl bg-gradient-to-r from-accent to-primary text-black font-bold text-center active:scale-95 transition-transform"
+                onClick={(e) => { e.preventDefault(); handleNavClick("Contact", "contact"); }}
+                className="mt-3 px-6 py-4 rounded-full bg-gradient-to-r from-accent to-primary text-black text-sm font-bold text-center"
               >
                 Hire Me ✦
               </a>

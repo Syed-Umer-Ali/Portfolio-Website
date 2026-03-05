@@ -11,7 +11,7 @@ export function Skills() {
   const [animated, setAnimated] = useState(false);
 
   return (
-    <section id="skills" className="py-24 px-6">
+    <section id="skills" className="py-24 px-4 sm:px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -35,7 +35,7 @@ export function Skills() {
             whileInView={{ opacity: 1, x: 0 }}
             onViewportEnter={() => setAnimated(true)}
             transition={{ duration: 0.6 }}
-            className="glass-card p-9"
+            className="glass-card p-5 md:p-9"
           >
             <h3 className="font-bold text-lg mb-8">Proficiency Levels</h3>
             {skills.map((s, i) => (
@@ -78,7 +78,7 @@ export function Skills() {
                 <PolarGrid stroke="rgba(0,255,255,0.1)" />
                 <PolarAngleAxis
                   dataKey="skill"
-                  tick={{ fill: "var(--muted)", fontSize: 12, fontFamily: "Space Grotesk" }}
+                  tick={{ fill: "var(--muted)", fontSize: 10, fontFamily: "Space Grotesk" }}
                 />
                 <Radar
                   dataKey="value"

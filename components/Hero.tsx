@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Download } from "lucide-react";
 
@@ -39,24 +39,21 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="grid-bg min-h-screen flex items-center justify-center relative overflow-hidden px-6 pt-24 pb-16"
+      className="grid-bg min-h-screen flex items-center justify-center relative overflow-hidden px-4 sm:px-6 pt-24 pb-16"
     >
-
-
       {/* Orbs */}
-      <div className="orb w-[300px] h-[300px] md:w-[600px] md:h-[600px] -top-20 -right-20 md:-top-52 md:-right-52"
+      <div className="orb w-[200px] h-[200px] md:w-[600px] md:h-[600px] -top-10 -right-10 md:-top-52 md:-right-52"
         style={{
           background: "rgba(124,58,237,0.15)",
           filter: "blur(clamp(40px, 10vw, 80px))"
         }} />
-      <div className="orb w-[200px] h-[200px] md:w-[400px] md:h-[400px] -bottom-20 -left-20 md:-bottom-32 md:-left-32"
+      <div className="orb w-[150px] h-[150px] md:w-[400px] md:h-[400px] -bottom-10 -left-10 md:-bottom-32 md:-left-32"
         style={{
           background: "rgba(0,255,255,0.1)",
           animationDelay: "-4s",
           filter: "blur(clamp(30px, 8vw, 60px))"
         }} />
-
-      <div className="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center relative z-10">
+      <div className="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-8 md:gap-16 items-center relative z-10">
         {/* Left */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -105,7 +102,7 @@ export function Hero() {
           </div>
 
           {/* Stats */}
-          <div className="flex gap-6 md:gap-10">
+          <div className="flex gap-10">
             {[
               ["4+", "Projects"],
               ["3", "AI SDKs"],
@@ -133,11 +130,11 @@ export function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative"
+          className="relative min-w-0"
         >
-          <div className="glass-card p-4 md:p-8 animate-float overflow-hidden">
+          <div className="glass-card p-4 md:p-8 animate-float overflow-hidden w-full">
             <pre
-              className="font-mono text-[10px] xs:text-xs md:text-sm leading-relaxed md:leading-8 whitespace-pre-wrap break-all md:break-normal"
+              className="font-mono text-[10px] sm:text-xs md:text-sm leading-relaxed md:leading-8 whitespace-pre-wrap break-all md:break-normal overflow-hidden"
               style={{ color: "var(--text)" }}
             >
               <span className="text-neutral-500">{"// AI Developer Profile\n"}</span>
@@ -148,18 +145,18 @@ export function Hero() {
               {"  "}
               <span className="text-purple-400">name</span>
               {": "}
-              <span style={{ color: "var(--accent)" }}>"Umer Ali"</span>
+              <span style={{ color: "var(--accent)" }}>"AI Dev"</span>
               {",\n  "}
               <span className="text-purple-400">skills</span>
               {": "}
               <span style={{ color: "var(--accent)" }}>
-                ["AI Agents", "MCP Servers", "RAG", "Automation"]
+                ["Agents","MCP","RAG"]
               </span>
               {",\n  "}
               <span className="text-purple-400">frameworks</span>
               {": "}
               <span style={{ color: "var(--accent)" }}>
-                ["OpenAI", "Claude", "Google ADK"]
+                ["OpenAI","Claude","Google"]
               </span>
               {",\n  "}
               <span className="text-purple-400">certified</span>
@@ -179,7 +176,7 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Floating badges */}
+          {/* Floating badges - hidden on mobile to avoid overflow */}
           {[
             { label: "🤖 OpenAI SDK", style: { top: -24, right: -24 } },
             { label: "⚡ Claude ADK", style: { bottom: 20, left: -34 } },
@@ -187,7 +184,7 @@ export function Hero() {
           ].map(({ label, style }) => (
             <div
               key={label}
-              className="absolute px-4 py-2 rounded-full text-xs font-semibold border border-white/10 backdrop-blur-md animate-float"
+              className="hidden md:block absolute px-4 py-2 rounded-full text-xs font-semibold border border-white/10 backdrop-blur-md animate-float"
               style={{
                 ...style,
                 background: "var(--surface2)",

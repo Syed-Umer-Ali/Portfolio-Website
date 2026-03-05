@@ -10,8 +10,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" style={{ scrollBehavior: "smooth" }}>
+      <body style={{ overflowX: "hidden" }}>{children}</body>
     </html>
   );
 }

@@ -11,7 +11,7 @@ import { Sparkles } from "@/components/Sparkles";
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative" style={{ background: "var(--bg)" }}>
+    <main className="min-h-screen relative overflow-x-hidden" style={{ background: "var(--bg)" }}>
       <Sparkles />
       <Navbar />
       <Hero />

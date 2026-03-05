@@ -18,7 +18,7 @@ export function Testimonials() {
   }, []);
 
   return (
-    <section id="testimonials" className="py-24 px-6" style={{ background: "rgba(13,13,31,0.5)" }}>
+    <section id="testimonials" className="py-24 px-4 sm:px-6 overflow-hidden" style={{ background: "rgba(13,13,31,0.5)" }}>
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

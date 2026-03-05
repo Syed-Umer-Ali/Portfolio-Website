@@ -11,7 +11,7 @@ const TIMELINE = [
 
 export function About() {
   return (
-    <section id="about" className="py-24 px-6" style={{ background: "rgba(13,13,31,0.5)" }}>
+    <section id="about" className="py-24 px-4 sm:px-6 overflow-hidden" style={{ background: "rgba(13,13,31,0.5)" }}>
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
