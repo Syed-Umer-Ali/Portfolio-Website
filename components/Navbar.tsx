@@ -10,7 +10,6 @@ const NAV_LINKS = [
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
   { name: "Certifications", href: "#certifications" },
-  { name: "Testimonials", href: "#testimonials" },
   { name: "Blog", href: "#blog" },
   { name: "Contact", href: "#contact" },
 ];

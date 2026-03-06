@@ -12,7 +12,40 @@ const CONTACT_LINKS = [
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", email: "", type: "", message: "" });
+
+  const handleSubmit = async () => {
+    if (!form.name || !form.email || !form.message) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      setSent(true);
+      setForm({ name: "", email: "", type: "", message: "" });
+    } catch (err: any) {
+      setError(err.message || "An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section
@@ -116,22 +149,24 @@ export function Contact() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className="block text-neutral-500 text-xs mb-2">Your Name</label>
+                    <label className="block text-neutral-500 text-xs mb-2">Your Name *</label>
                     <input
                       className="contact-input"
                       placeholder="John Doe"
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      disabled={loading}
                     />
                   </div>
                   <div>
-                    <label className="block text-neutral-500 text-xs mb-2">Email</label>
+                    <label className="block text-neutral-500 text-xs mb-2">Email *</label>
                     <input
                       type="email"
                       className="contact-input"
                       placeholder="john@email.com"
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      disabled={loading}
                     />
                   </div>
                 </div>
@@ -142,6 +177,7 @@ export function Contact() {
                     className="contact-input cursor-pointer"
                     value={form.type}
                     onChange={(e) => setForm({ ...form, type: e.target.value })}
+                    disabled={loading}
                   >
                     <option value="">Select project type...</option>
                     <option>AI Agent Development</option>
@@ -153,21 +189,25 @@ export function Contact() {
                 </div>
 
                 <div className="mb-7">
-                  <label className="block text-neutral-500 text-xs mb-2">Message</label>
+                  <label className="block text-neutral-500 text-xs mb-2">Message *</label>
                   <textarea
                     className="contact-input resize-y"
                     rows={5}
                     placeholder="Tell me about your project..."
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    disabled={loading}
                   />
                 </div>
 
+                {error && <p className="text-red-400 text-xs mb-4 text-center">{error}</p>}
+
                 <button
-                  className="btn-primary w-full flex items-center justify-center gap-2"
-                  onClick={() => setSent(true)}
+                  className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  onClick={handleSubmit}
+                  disabled={loading}
                 >
-                  Send Message <Send size={16} />
+                  {loading ? "Sending..." : "Send Message"} <Send size={16} />
                 </button>
               </>
             )}

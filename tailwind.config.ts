@@ -26,6 +26,8 @@ const config: Config = {
         "shimmer": "shimmer 3s linear infinite",
         "blink": "blink 1s step-end infinite",
         "spotlight": "spotlight 2s ease 0.75s 1 forwards",
+        "sparkle": "sparkle 4s ease-in-out infinite",
+        "twinkle": "twinkle 2s ease-in-out infinite",
       },
       keyframes: {
         float: {
@@ -47,6 +49,14 @@ const config: Config = {
         spotlight: {
           "0%": { opacity: "0", transform: "translate(-72%, -62%) scale(0.5)" },
           "100%": { opacity: "1", transform: "translate(-50%, -40%) scale(1)" },
+        },
+        sparkle: {
+          "0%, 100%": { opacity: "0", transform: "scale(0)" },
+          "50%": { opacity: "1", transform: "scale(1)" },
+        },
+        twinkle: {
+          "0%, 100%": { opacity: "0.2", transform: "scale(0.8)" },
+          "50%": { opacity: "1", transform: "scale(1.2)" },
         },
       },
       backgroundImage: {

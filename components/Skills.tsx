@@ -1,10 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import {
-  RadarChart, Radar, PolarGrid, PolarAngleAxis,
-  ResponsiveContainer,
-} from "recharts";
 import { skills, radarData, techStack } from "@/data/skills";
 
 export function Skills() {
@@ -73,21 +69,7 @@ export function Skills() {
             className="glass-card p-9"
           >
             <h3 className="font-bold text-lg mb-8">Skill Radar</h3>
-            <ResponsiveContainer width="100%" height={320}>
-              <RadarChart data={radarData}>
-                <PolarGrid stroke="rgba(0,255,255,0.1)" />
-                <PolarAngleAxis
-                  dataKey="skill"
-                  tick={{ fill: "var(--muted)", fontSize: 10, fontFamily: "Space Grotesk" }}
-                />
-                <Radar
-                  dataKey="value"
-                  stroke="#00ffff"
-                  fill="rgba(0,255,255,0.1)"
-                  strokeWidth={2}
-                />
-              </RadarChart>
-            </ResponsiveContainer>
+            <SVGRadar data={radarData} />
           </motion.div>
         </div>
 
@@ -113,5 +95,134 @@ export function Skills() {
         </motion.div>
       </div>
     </section>
+  );
+}
+
+/* ── Pure-SVG Radar Chart ─────────────────────────────────── */
+function SVGRadar({ data }: { data: { skill: string; value: number }[] }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const size = 280;
+  const cx = size / 2;
+  const cy = size / 2;
+  const maxR = size / 2 - 38;
+  const levels = 5;
+  const n = data.length;
+  const maxVal = 100;
+
+  const angle = (i: number) => (Math.PI * 2 * i) / n - Math.PI / 2;
+
+  // Polygon points for one level
+  const levelPoints = (fraction: number) =>
+    data
+      .map(
+        (_, i) =>
+          `${cx + maxR * fraction * Math.cos(angle(i))},${cy + maxR * fraction * Math.sin(angle(i))
+          }`
+      )
+      .join(" ");
+
+  // Data-value polygon
+  const dataPoints = data.map((d, i) => {
+    const r = (d.value / maxVal) * maxR;
+    return { x: cx + r * Math.cos(angle(i)), y: cy + r * Math.sin(angle(i)) };
+  });
+  const dataPolygon = dataPoints.map((p) => `${p.x},${p.y}`).join(" ");
+
+  // Label positions (a bit outside maxR)
+  const labelPos = data.map((d, i) => {
+    const r = maxR + 22;
+    return {
+      x: cx + r * Math.cos(angle(i)),
+      y: cy + r * Math.sin(angle(i)),
+      label: d.skill,
+    };
+  });
+
+  return (
+    <svg
+      width="100%"
+      viewBox={`0 0 ${size} ${size}`}
+      style={{ display: "block", maxWidth: 320, margin: "0 auto" }}
+    >
+      {/* Grid rings */}
+      {Array.from({ length: levels }, (_, k) => (
+        <polygon
+          key={k}
+          points={levelPoints((k + 1) / levels)}
+          fill="none"
+          stroke="rgba(0,255,255,0.12)"
+          strokeWidth={1}
+        />
+      ))}
+
+      {/* Axis spokes */}
+      {data.map((_, i) => (
+        <line
+          key={i}
+          x1={cx}
+          y1={cy}
+          x2={cx + maxR * Math.cos(angle(i))}
+          y2={cy + maxR * Math.sin(angle(i))}
+          stroke="rgba(0,255,255,0.1)"
+          strokeWidth={1}
+        />
+      ))}
+
+      {/* Data polygon */}
+      {mounted && (
+        <>
+          <polygon
+            points={dataPolygon}
+            fill="rgba(0,255,255,0.12)"
+            stroke="#00ffff"
+            strokeWidth={2}
+            style={{ filter: "drop-shadow(0 0 8px rgba(0,255,255,0.45))" }}
+          >
+            <animate attributeName="opacity" from="0" to="1" dur="0.8s" fill="freeze" />
+          </polygon>
+
+          {/* Vertex dots */}
+          {dataPoints.map((p, i) => (
+            <circle
+              key={i}
+              cx={p.x}
+              cy={p.y}
+              r={4}
+              fill="#00ffff"
+              style={{ filter: "drop-shadow(0 0 5px #00ffff)" }}
+            >
+              <animate
+                attributeName="r"
+                from="0"
+                to="4"
+                dur={`${0.4 + i * 0.1}s`}
+                fill="freeze"
+              />
+            </circle>
+          ))}
+        </>
+      )}
+
+      {/* Skill labels */}
+      {labelPos.map((l, i) => (
+        <text
+          key={i}
+          x={l.x}
+          y={l.y}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fontSize={9}
+          fill="#888"
+          fontFamily="Space Grotesk, sans-serif"
+          style={{ userSelect: "none" }}
+        >
+          {l.label}
+        </text>
+      ))}
+    </svg>
   );
 }
